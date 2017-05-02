@@ -10,13 +10,14 @@ $(document).ready(function(){
 
 	function fetchAndRenderCharacters(e){
 		e.preventDefault()
-		console.log("Form submitted")
 		const starWarsAdapter = new StarWars($input.val())
 		starWarsAdapter.get().then(renderCharacters)
 	}
 
 	function renderCharacters(data){
-		console.log(data)
+		$("#charHeading").html("Characters")
+		$("#movHeading").empty()
+		$movieList.empty()
 		const characterListItems = data.results.map(function(c){
 			var html = "<div>"
 			html += `<li><h5>${c.name}</h5></li>`
@@ -31,13 +32,10 @@ $(document).ready(function(){
 	}
 
 	function getMovies(e){
+		$("#movHeading").html("Movies")
 		$movieList.empty()
-		console.log(e)
 		const name = e.target.parentElement.parentElement.firstChild.firstChild.innerText
 		const starWarsAdapter = new StarWars(name)
-
-		
-
 		starWarsAdapter.get()
 		.then(getEachMovie)
 	}
